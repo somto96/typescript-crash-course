@@ -160,3 +160,24 @@ const emp = new Employee("Jax", 23, "CEO");
 console.log("employee", emp.register());
 
 // Generics
+/*=======================*/
+/* Type placeholders/parameters */
+/*=======================*/
+
+// type placeholder/parameter: <T>
+const getArray = <T>(items: T[]): T[] => {
+	return new Array().concat(items);
+};
+
+// Here we can we use the regular type declaration
+let numArray: number[] = getArray([1,2,3]);
+let strArray: string[] =getArray(["Jill", "Jake", "Bob"]);
+
+console.log("numArray: ", numArray);
+console.log("strArray: ", strArray);
+
+// OR
+
+// Use type assertions to replace the type param/placeholder
+let numArrayTwo = getArray<number>([1,2,3]);
+let strArrayTwo = getArray<string>(["Jill", "Jake", "Bob"]);

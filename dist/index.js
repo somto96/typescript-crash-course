@@ -101,3 +101,19 @@ class Employee extends UserAccount {
 const emp = new Employee("Jax", 23, "CEO");
 console.log("employee", emp.register());
 // Generics
+/*=======================*/
+/* Type placeholders/parameters */
+/*=======================*/
+// type placeholder/parameter: <T>
+const getArray = (items) => {
+    return new Array().concat(items);
+};
+// Here we can we use the regular type declaration
+let numArray = getArray([1, 2, 3]);
+let strArray = getArray(["Jill", "Jake", "Bob"]);
+console.log("numArray: ", numArray);
+console.log("strArray: ", strArray);
+// OR
+// Use type assertions to replace the type param/placeholder
+let numArrayTwo = getArray([1, 2, 3]);
+let strArrayTwo = getArray(["Jill", "Jake", "Bob"]);
