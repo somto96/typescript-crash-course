@@ -72,7 +72,7 @@ function log(message) {
 const options = {
     name: "ade",
     // size: 2
-    id: "Q"
+    id: "Q",
 };
 const add = (z, y) => z + y;
 console.log("interface-function-add", add(2, 3));
@@ -108,12 +108,26 @@ console.log("employee", emp.register());
 const getArray = (items) => {
     return new Array().concat(items);
 };
-// Here we can we use the regular type declaration
-let numArray = getArray([1, 2, 3]);
-let strArray = getArray(["Jill", "Jake", "Bob"]);
-console.log("numArray: ", numArray);
-console.log("strArray: ", strArray);
-// OR
 // Use type assertions to replace the type param/placeholder
 let numArrayTwo = getArray([1, 2, 3]);
 let strArrayTwo = getArray(["Jill", "Jake", "Bob"]);
+function logPoint(p) {
+    console.log(`${p.x}, ${p.y}`);
+}
+class VirtualPoint {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+const newVPoint = new VirtualPoint(80, 90);
+logPoint(newVPoint);
+const hello = {
+    id: 1,
+    age: 20,
+    name: "Joe",
+};
+const testFn = (args) => {
+    console.log("test", args);
+};
+testFn(hello);

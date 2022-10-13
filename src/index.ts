@@ -7,7 +7,7 @@ x = 5;
 
 // Arrays
 let ids: number[] = [1, 2, 3, 4, 5];
-let arr: any[] = []; 
+let arr: any[] = [];
 
 // Tuple - You can use this to specify the exact types inside of the array
 
@@ -57,7 +57,7 @@ type User = {
 const testUser: User = {
 	id: 0,
 	name: "testUser",
-}
+};
 console.log("testingType", testUser);
 // "interface" can also be used in a similar way
 
@@ -104,14 +104,14 @@ interface OptionsType {
 const options: OptionsType = {
 	name: "ade",
 	// size: 2
-	id: "Q"
-}
+	id: "Q",
+};
 
 interface MathFunc {
-	(x: number, y: number): number
+	(x: number, y: number): number;
 }
 
-const add:MathFunc = (z: number, y: number): number => z + y;
+const add: MathFunc = (z: number, y: number): number => z + y;
 
 console.log("interface-function-add", add(2, 3));
 
@@ -119,13 +119,13 @@ console.log("interface-function-add", add(2, 3));
 interface Person {
 	name: string;
 	age: number;
-	register(): string; 
+	register(): string;
 }
 
 class UserAccount implements Person {
 	name: string;
 	age: number;
- 
+
 	// Constructors are methods that runs as soon as the object is instantiated
 	constructor(name: string, age: number) {
 		// "this" refers to the current instance(class)
@@ -140,7 +140,6 @@ class UserAccount implements Person {
 
 // Object instantiation
 const newUser = new UserAccount("Murphy", 1);
-
 
 console.log("newUser", newUser.name);
 console.log("test", newUser.register());
@@ -169,15 +168,45 @@ const getArray = <T>(items: T[]): T[] => {
 	return new Array().concat(items);
 };
 
-// Here we can we use the regular type declaration
-let numArray: number[] = getArray([1,2,3]);
-let strArray: string[] =getArray(["Jill", "Jake", "Bob"]);
-
-console.log("numArray: ", numArray);
-console.log("strArray: ", strArray);
-
-// OR
-
 // Use type assertions to replace the type param/placeholder
-let numArrayTwo = getArray<number>([1,2,3]);
+let numArrayTwo = getArray<number>([1, 2, 3]);
 let strArrayTwo = getArray<string>(["Jill", "Jake", "Bob"]);
+
+// Structural Type System
+interface Point {
+	x: number;
+	y: number;
+}
+
+function logPoint(p: Point) {
+	console.log(`${p.x}, ${p.y}`);
+}
+class VirtualPoint {
+	x: number;
+	y: number;
+
+	constructor(x: number, y: number) {
+		this.x = x;
+		this.y = y;
+	}
+}
+
+const newVPoint = new VirtualPoint(80, 90);
+logPoint(newVPoint);
+
+interface Test {
+	age: number;
+	id: number;
+}
+
+const hello = {
+	id: 1,
+	age: 20,
+	name: "Joe", 
+}
+
+const testFn = (args: Test): void => {
+	console.log("test", args);
+}
+
+testFn(hello);
