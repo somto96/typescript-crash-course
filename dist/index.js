@@ -1,4 +1,7 @@
 "use strict";
+/// <reference path="validations/Validation.ts" />
+/// <reference path="validations/LettersOnlyValidator.ts" />
+/// <reference path="validations/ZipCodeValidator.ts" />
 // Basic types
 let test = 5;
 let company = "Google Inc";
@@ -131,3 +134,43 @@ const testFn = (args) => {
     console.log("test", args);
 };
 testFn(hello);
+let lettersRegExp = /^[a-zA-Z]+$/;
+let numbersRegExp = /^\d+$/;
+class LettersOnlyValidator {
+    isAcceptable(s) {
+        return lettersRegExp.test(s);
+    }
+}
+class ZipCodeValidator {
+    isAcceptable(s) {
+        return s.length === 5 && numbersRegExp.test(s);
+    }
+}
+let strings = ["Hello", "98052", "101"];
+// Validators to use
+let validators = {};
+validators["ZIP code"] = new ZipCodeValidator();
+validators["Letters only"] = new LettersOnlyValidator();
+console.log("Validators", validators);
+// Making use of imported Validation namespace 
+// Show whether each string passed each validator
+for (let s of strings) {
+    for (let name in validators) {
+        let isMatch = validators[name].isAcceptable(s);
+        console.log(`'${s}' ${isMatch ? "matches" : "does not match"} '${name}'.`);
+    }
+}
+// Importing Validation namespace to have some kind of organization scheme
+let stringsTest = ["Hello", "98052", "101"];
+// validatorsTest to use
+let validatorsTest = {};
+validatorsTest["ZIP code"] = new ZipCodeValidator();
+validatorsTest["Letters only"] = new LettersOnlyValidator();
+console.log("ValidatorsTest", validatorsTest);
+// Show whether each string passed each validatorsTest
+for (let s of strings) {
+    for (let name in validatorsTest) {
+        let isMatch = validatorsTest[name].isAcceptable(s);
+        console.log(`'${s}' ${isMatch ? "matches" : "does not match"} '${name}'.`);
+    }
+}

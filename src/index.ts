@@ -1,3 +1,8 @@
+/// <reference path="validations/Validation.ts" />
+/// <reference path="validations/LettersOnlyValidator.ts" />
+/// <reference path="validations/ZipCodeValidator.ts" />
+
+
 // Basic types
 let test: number = 5;
 let company: string = "Google Inc";
@@ -202,11 +207,73 @@ interface Test {
 const hello = {
 	id: 1,
 	age: 20,
-	name: "Joe", 
-}
+	name: "Joe",
+};
 
 const testFn = (args: Test): void => {
 	console.log("test", args);
-}
+};
 
 testFn(hello);
+
+/*=======================*/
+/* NAMESPACES */
+/*=======================*/
+
+// Example
+interface StringValidator {
+	isAcceptable(s: string): boolean;
+}
+
+let lettersRegExp = /^[a-zA-Z]+$/;
+let numbersRegExp = /^\d+$/;
+
+class LettersOnlyValidator implements StringValidator {
+	isAcceptable(s: string) {
+		return lettersRegExp.test(s);
+	}
+}
+
+class ZipCodeValidator implements StringValidator {
+	isAcceptable(s: string): boolean {
+		return s.length === 5 && numbersRegExp.test(s);
+	}
+}
+
+let strings = ["Hello", "98052", "101"];
+
+// Validators to use
+let validators: { [s: string]: StringValidator } = {};
+validators["ZIP code"] = new ZipCodeValidator();
+validators["Letters only"] = new LettersOnlyValidator();
+
+console.log("Validators", validators);
+
+
+// Making use of imported Validation namespace 
+
+// Show whether each string passed each validator
+for (let s of strings) {
+	for (let name in validators) {
+		let isMatch = validators[name].isAcceptable(s);
+		console.log(`'${s}' ${isMatch ? "matches" : "does not match"} '${name}'.`);
+	}
+}
+
+// Importing Validation namespace to have some kind of organization scheme
+let stringsTest = ["Hello", "98052", "101"];
+
+// validatorsTest to use
+let validatorsTest: { [s: string]: StringValidator } = {};
+validatorsTest["ZIP code"] = new ZipCodeValidator();
+validatorsTest["Letters only"] = new LettersOnlyValidator();
+
+console.log("ValidatorsTest", validatorsTest);
+
+// Show whether each string passed each validatorsTest
+for (let s of strings) {
+	for (let name in validatorsTest) {
+		let isMatch = validatorsTest[name].isAcceptable(s);
+		console.log(`'${s}' ${isMatch ? "matches" : "does not match"} '${name}'.`);
+	}
+}
